@@ -135,7 +135,7 @@ class KBinsDiscretizer(BaseEstimator, TransformerMixin):
         -------
         self
         """
-        X = check_array(X, dtype='numeric')
+        X = check_array(X, dtype='numeric', force_all_finite='allow-nan')
 
         valid_encode = ('onehot', 'onehot-dense', 'ordinal')
         if self.encode not in valid_encode:
@@ -247,7 +247,8 @@ class KBinsDiscretizer(BaseEstimator, TransformerMixin):
         """
         check_is_fitted(self, ["bin_edges_"])
 
-        Xt = check_array(X, copy=True, dtype=FLOAT_DTYPES)
+        Xt = check_array(X, copy=True, dtype=FLOAT_DTYPES,
+            force_all_finite='allow-nan')
         n_features = self.n_bins_.shape[0]
         if Xt.shape[1] != n_features:
             raise ValueError("Incorrect number of features. Expecting {}, "
