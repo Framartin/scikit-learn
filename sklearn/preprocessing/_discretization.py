@@ -154,7 +154,7 @@ class KBinsDiscretizer(BaseEstimator, TransformerMixin):
         bin_edges = np.zeros(n_features, dtype=object)
         for jj in range(n_features):
             column = X[:, jj]
-            col_min, col_max = column.min(), column.max()
+            col_min, col_max = np.nanmin(column), np.nanmax(column)
 
             if col_min == col_max:
                 warnings.warn("Feature %d is constant and will be "
@@ -168,7 +168,7 @@ class KBinsDiscretizer(BaseEstimator, TransformerMixin):
 
             elif self.strategy == 'quantile':
                 quantiles = np.linspace(0, 100, n_bins[jj] + 1)
-                bin_edges[jj] = np.asarray(np.percentile(column, quantiles))
+                bin_edges[jj] = np.asarray(np.nanpercentile(column, quantiles))
 
             elif self.strategy == 'kmeans':
                 from ..cluster import KMeans  # fixes import loops
