@@ -263,7 +263,9 @@ class KBinsDiscretizer(BaseEstimator, TransformerMixin):
             rtol = 1.e-5
             atol = 1.e-8
             eps = atol + rtol * np.abs(Xt[:, jj])
+            Xt_jj_isnan = np.isnan(Xt[:, jj])
             Xt[:, jj] = np.digitize(Xt[:, jj] + eps, bin_edges[jj][1:])
+            Xt[Xt_jj_isnan, jj] = np.nan
         np.clip(Xt, 0, self.n_bins_ - 1, out=Xt)
 
         if self.encode == 'ordinal':
