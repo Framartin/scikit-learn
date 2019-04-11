@@ -56,7 +56,7 @@ Overview of clustering methods
 
    * - :ref:`Affinity propagation <affinity_propagation>`
      - damping, sample preference
-     - Not scalable with n_samples
+     - Not scalable with ``n_samples``
      - Many clusters, uneven cluster size, non-flat geometry
      - Graph distance (e.g. nearest-neighbor graph)
 
